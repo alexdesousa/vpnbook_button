@@ -1,4 +1,4 @@
-vpnbook_button
+VPNBook Button
 ==============
 
-Button to start, stop or restart OpenVPN using VPNBook service
+Button to start, stop or restart OpenVPN using VPNBook service.

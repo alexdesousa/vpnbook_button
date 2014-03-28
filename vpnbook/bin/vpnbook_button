@@ -1,0 +1,82 @@
+#!/bin/bash
+
+VPN=/opt/vpnbook/bin/vpnbook
+
+# Starts VPN connection.
+function start() {
+    NAME=$(zenity --width=500 --height=250 --list --title 'Start VPN' --radiolist --text 'Choose a VPN name:' --column '' --column 'VPN Name' --column 'Comment' TRUE 'euro1' 'Default' FALSE 'euro2' '' FALSE 'uk1' 'Optimized for fast web surfing. No P2P downloading.' FALSE 'us1' 'Optimized for fast web surfing. No P2P downloading.')
+    
+    if [ "$NAME" = "" ]; then
+        return 0
+    else
+        gksu $VPN start $NAME &
+
+        return 0
+    fi
+}
+
+# Gets PID of the current OpenVPN instance.
+#
+# @param RES Response of the call of $VPN is_it_running
+#
+# @return OpenVPN PID.
+function get_pid() {
+    RES=$1
+    
+    PID=$(echo $RES | grep -Po ".*PID: \K\d*(?=.*)")
+    
+    echo "$PID"
+}
+
+# Gets configuration name of the current OpenVPN instance.
+#
+# @param RES Response of the call of $VPN is_it_running
+#
+# @return OpenVPN configuration.
+function get_config() {
+    RES=$1
+    
+    SRC=$(echo "$RES" | grep -Po ".*Configuration: \K\w*(?=.*)")
+    
+    echo "$SRC"
+}
+
+# Stops VPN connection.
+#
+# @param RES Result from $VPN is_it_running
+function stop_restart() {
+    RES=$1
+    
+    PID=$(get_pid "$RES")
+    SRC=$(get_config "$RES")
+    
+    NEW_RES=$(zenity --width=300 --height=150 --list --title 'Stop/Restart VPN' --radiolist --text 'Choose an action:' --column '' --column 'Action' --column "PID" --column 'Name' TRUE 'Stop' "$PID" "$SRC" FALSE 'Restart' '-' "$SRC")
+    
+    if [ "$NEW_RES" = "Stop" ]; then
+        gksu $VPN stop &
+        
+        return 0
+    elif [ "$NEW_RES" = "Restart" ]; then
+        gksu $VPN restart &
+        
+        return 0
+    else
+        return 0
+    fi
+}
+
+# Starts or stops the VPN connection.
+function start_stop_restart() {
+    RES=$($VPN is_it_running)
+
+    if [ "$RES" = "no" ]; then
+        # Start
+        start
+    else
+        # Stop
+        stop_restart "$RES"
+    fi
+}
+
+#MAIN
+start_stop_restart

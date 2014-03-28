@@ -1,0 +1,217 @@
+#!/bin/bash
+
+# Gets argument.
+#
+# @param NAME Argument name.
+#
+# @return Argument value.
+function get_arg() {
+    ARG=`curl -s http://www.vpnbook.com/freevpn | grep -Po "<li>$1:[ ]*<strong>\K[0-9A-Za-z]*(?=(</strong></li>))" | awk '{i++}i==2{print; exit}'`;
+
+    if [ "$ARG" = "" ]; then
+        echo "vpnbook"
+    else
+        echo $ARG
+    fi
+}
+
+# Gets the current username of the VPNBOOK VPN.
+#
+# @return Username.
+function get_username() {
+    USER=$(get_arg "Username")
+    
+    echo $USER
+}
+
+# Gets the current password of the VPNBOOK VPN.
+#
+# @return Password.
+function get_password() {
+    PASS=$(get_arg "Password")
+    
+    echo $PASS
+}
+
+# Writes credentials to the default file.
+#
+# @param USER Username.
+# @param PASS Password.
+function write_credentials() {
+    USER=$(get_username)
+    PASS=$(get_password)
+
+    CREDS=/opt/vpnbook/config/login.conf
+
+    if [ -f $CREDS ] ; then
+        rm $CREDS
+    fi
+
+    echo -e "$USER\n$PASS" > $CREDS
+}
+
+# Gets configuration file identifier.
+#
+# @return Configuration file identifier.
+function get_src() {
+    SRC_DEFAULT="euro1"
+    SRCFILE=/opt/vpnbook/config/vpnbook.src
+
+    if [ -f $SRCFILE ]; then
+        SRC=$(cat $SRCFILE)
+        if [ "$SRC" = "" ]; then
+            set_src $SRC_DEFAULT
+            echo "$SRC_DEFAULT"
+        else
+            echo $SRC
+        fi
+    else
+        set_src $SRC_DEFAULT
+        echo "$SRC_DEFAULT"
+    fi
+}
+
+# Sets configuration file identifier.
+#
+# @param SRC Configuration file identifier.
+function set_src() {
+    SRCFILE=/opt/vpnbook/config/vpnbook.src
+    SRC=$1
+    
+    echo "$SRC" > $SRCFILE
+}
+
+# Gets vpn name.
+#
+# @param SRC VPNBOOK configuration file identifier.
+#
+# @return Configuration file.
+function get_config() {
+    SRC=""
+    if [ "$1" = "" ]; then
+        SRC=$(get_src)
+    else
+        SRC=$1
+        set_src $SRC
+    fi
+
+    case "$SRC" in
+      euro1)
+        echo /opt/vpnbook/ovpn/vpnbook-$SRC-tcp443.ovpn
+        ;;
+      euro2)
+        echo /opt/vpnbook/ovpn/vpnbook-$SRC-tcp443.ovpn
+        ;;
+      uk1)
+        echo /opt/vpnbook/ovpn/vpnbook-$SRC-tcp443.ovpn
+        ;;
+      us1)
+        echo /opt/vpnbook/ovpn/vpnbook-$SRC-tcp443.ovpn
+        ;;
+      *)
+        echo /opt/vpnbook/ovpn/vpnbook-euro1-tcp443.ovpn
+    esac
+}
+
+# Gets OpenVPN PID
+#
+# @return OpenVPN PID
+function get_pid() {
+    PIDFILE=/opt/vpnbook/config/vpnbook.pid
+    
+    if [ -f $PIDFILE ]; then
+        PID=$(cat $PIDFILE)
+        NAME=$(ps -p $PID -o comm=)
+        if [ "$NAME" = "openvpn" ]; then
+            echo "$PID"
+        else
+            echo ""
+        fi
+    else
+        echo ""
+    fi
+}
+
+# Stores OpenVPN PID
+#
+# @param PID OpenVPN PID
+function set_pid() {
+    PID=$1
+    
+    PIDFILE=/opt/vpnbook/config/vpnbook.pid
+    echo "$PID" > $PIDFILE
+}
+
+# Starts VPN
+#
+# @param Configuration file identifier.
+function start() {
+    SRC=$1
+    
+    PID=$(get_pid)
+    if [ "$PID" = "" ]; then
+        CONFIG=$(get_config $SRC)
+        write_credentials
+        echo "Starting service OpenVPN: $CONFIG" >&2
+        openvpn --config $CONFIG & PID=$(echo $!)
+        set_pid $PID
+
+        return 0
+    else
+        echo "Service already running" >&2
+        return 1
+    fi
+}
+
+# Stops VPN
+function stop() {
+    PID=$(get_pid)
+    if [ "$PID" = "" ]; then
+        echo "Service is not running" >&2
+    else
+        echo "Stoping service" >&2
+        kill -15 $PID
+        echo "Service stopped" >&2
+    fi
+}
+
+# Restart VPN
+#
+# @param SRC Configuration file identifier.
+function restart() {
+    SRC=$(get_src)
+
+    stop
+    start $SRC
+}
+
+# Checks whether OpenVPN is already running or not.
+#
+# @return no
+function is_it_running() {
+    PID=$(get_pid)
+    if [ "$PID" = "" ]; then
+        echo "no"
+    else
+        SRC=$(get_src)
+        echo -e "Running: yes\nPID: $PID\nConfiguration: $SRC"
+    fi
+}
+
+#Main
+case "$1" in
+  start)
+    start $2
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    restart
+    ;;
+  is_it_running)
+    is_it_running
+    ;;
+  *)
+    echo "Usage: $0 {start [config identifier]|stop|restart|is_it_running}"
+esac

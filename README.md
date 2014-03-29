@@ -81,7 +81,7 @@ Actualmente, VPN Book ofrece un servicio gratuito de VPN (Red Privada Virtual) p
 
 * **US & UK VPN**: "Nuestros servidores de EEUU y Reino Unido permiten ver programación como la de Hulu o Netflix y páginas web con acceso restringido por país.".
 
-Prerequisitos
+Prerrequisitos
 -------------
 
 El script *vpnbook_button* requiere los siguientes paquetes:
@@ -100,8 +100,8 @@ En *GNU/Linux Debian Jessie*, están en los repositorios:
 
         alex@arya:~$ sudo apt-get install zenity openvpn
 
-Install
--------
+Instalación
+-----------
 
 Para instalar, sólo sigue los pasos mostrados abajo:
 

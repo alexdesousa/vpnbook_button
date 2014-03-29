@@ -122,7 +122,7 @@ Para instalar, sólo sigue los pasos mostrados abajo:
 
      1. Haga clic derecho en el panel donde quiera colocar el botón.
      2. En el menú de contexto, seleccione la opción *Agregar al Panel*.
-     3. En la ventana *Agregar al Panel, seleccione la opción *Lanzador de aplicación personalizado* y selecciones *Agregar*.
+     3. En la ventana *Agregar al Panel*, seleccione la opción *Lanzador de aplicación personalizado* y selecciones *Agregar*.
      4. En la ventana de *Creación de Lanzador*, coloque lo siguiente:
          * **Tipo**: Aplicación.
          * **Nombre**: Botón VPNBook

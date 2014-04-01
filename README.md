@@ -3,7 +3,7 @@
 
 ---
 
-*Last update: March 28, 2014*
+*Last update: March 31, 2014*
 
 Currently, VPN Book offers free VPN for different purposes. As they state in their **[page] (http://www.vpnbook.com/)**:
 
@@ -30,41 +30,23 @@ In *GNU/Linux Debian Jessie* they are in the repositories:
 
         alex@arya:~$ sudo apt-get install zenity openvpn
 
+Also you can install them from the *Synaptic* package manager.
+
 Install
 -------
 
-To install just follow the steps below:
+To install, just double click the *install.sh* script. To create an application
+launcher in a panel, just drag the shortcut to the panel of your preference
+(this works for *MATE*; for other desktop environments, check its documentation).
 
-1. Install the script:
+Usage
+-----
 
-    * *su* install (it needs *root* user):
+The button has two functions:
 
-            alex@arya:~$ cd vpnbook_button/ 
-            alex@arya:~/vpnbook_button$ su -
-            alex@arya:~/vpnbook_button# ./root-install.sh install
+1. When OpenVPN is inactive, it will ask to choose a VPN server from the list and the click OK.
 
-    * *sudo* install (it needs *sudoer* user):
-
-            alex@arya:~$ cd vpnbook_button/
-            alex@arya:~/vpnbook_button# sudo ./root-install.sh install
-
-2. Create the button. Usually involves creating a launcher for your desktop environment. I mainly use *MATE Desktop Environment* so I'll list the steps to create a launcher in the *MATE* panel.
-
-     1. Right click the panel you want to place the button.
-     2. In the context menu, select *Add to Panel* option.
-     3. In the *Add to Panel* window, select the option *Custom Application Launcher* and click *Add*.
-     4. In the *Create Launcher*, put the following:
-         * **Type**: Application.
-         * **Name**: VPNBook Button
-         * **Command**: */opt/vpnbook/bin/vpnbook_button*
-         * **Comment**: Starts, stops and restarts VPNBook VPN connection.
-     5. Click *OK* and you're done.
-
-3. Use the button.
-
-    * When OpenVPN is inactive, it will ask to choose a VPN server from the list and the click OK.
-
-    * When OpenVPN is active, it will ask to choose between stopping the program or restarting it using the server previously chosen.
+2. When OpenVPN is active, it will ask to choose between stopping the program or restarting it using the server previously chosen.
 
 ---
 
@@ -73,7 +55,7 @@ To install just follow the steps below:
 
 ---
 
-*Última actualización: 28 de marzo de 2014*
+*Última actualización: 31 de marzo de 2014*
 
 Actualmente, VPN Book ofrece un servicio gratuito de VPN (Red Privada Virtual) para diferentes propósitos. Como dicen en su **[página] (http://www.vpnbook.com/)**:
 
@@ -100,38 +82,21 @@ En *GNU/Linux Debian Jessie*, están en los repositorios:
 
         alex@arya:~$ sudo apt-get install zenity openvpn
 
+También pueden ser instalados por el *administrador de paquetes Synaptic*.
+
 Instalación
 -----------
 
-Para instalar, sólo sigue los pasos mostrados abajo:
+Para instalar, sólo haz doble clic sobre el script *install.sh*. Para crear un
+lanzador, arrastra el acceso directo que esta en el escritorio, hacia el panel
+donde quieras el botón (functiona en *MATE*; para otros entornos de escritorio,
+consulte el manual de los mismos).
 
-1. Instalar el script:
+Uso
+---
 
-    * Instalación con *su* (necesita usuario *root*):
+El botón tiene dos funciones:
 
-            alex@arya:~$ cd vpnbook_button/ 
-            alex@arya:~/vpnbook_button$ su -
-            alex@arya:~/vpnbook_button# ./root-install.sh install
+1. Cuando OpenVPN esté inactivo, pedirá elegir un servidor VPN de la lista.
 
-    * Instalación con *sudo* (necesita usuario *sudoer*):
-
-            alex@arya:~$ cd vpnbook_button/
-            alex@arya:~/vpnbook_button# sudo ./root-install.sh install
-
-2. Crear el botón. Usualmente involucra crear un lanzador para tu ambiente de escritorio. Principalmente, uso *MATE Desktop Environment*, así que listaré los pasos para crear un lanzador en el panel de *MATE* (las opciones fueron traducidas por mí y tal vez no aparezcan igual en escritorios en español):
-
-     1. Haga clic derecho en el panel donde quiera colocar el botón.
-     2. En el menú de contexto, seleccione la opción *Agregar al Panel*.
-     3. En la ventana *Agregar al Panel*, seleccione la opción *Lanzador de aplicación personalizado* y selecciones *Agregar*.
-     4. En la ventana de *Creación de Lanzador*, coloque lo siguiente:
-         * **Tipo**: Aplicación.
-         * **Nombre**: Botón VPNBook
-         * **Comando**: */opt/vpnbook/bin/vpnbook_button*
-         * **Comentario**: Inicia, detiene y reinicia una conexión con las VPN de VPNBook.
-     5. Haga clic en *OK* y listo.
-
-3. Usar el botón.
-
-    * Cuando OpenVPN esté inactivo, pedirá elegir un servidor VPN de la lista.
-
-    * Cuando OpenVPN esté activo, pedirá elegir entre detener o reiniciar el programa, usando el servidor elegido anteriormente.
+2. Cuando OpenVPN esté activo, pedirá elegir entre detener o reiniciar el programa, usando el servidor elegido anteriormente.

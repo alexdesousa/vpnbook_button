@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=VPNBook
+Comment=VPNBook Button
+Type=Application
+Exec=/opt/vpnbook/bin/vpnbook_button
+Icon=/opt/vpnbook/logos/openvpn.png
+Terminal=false
+Categories=Internet

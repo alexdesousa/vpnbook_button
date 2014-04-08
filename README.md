@@ -3,7 +3,7 @@
 
 ---
 
-*Last update: March 31, 2014*
+*Last update: April 4th, 2014*
 
 Currently, VPN Book offers free VPN for different purposes. As they state in their **[page] (http://www.vpnbook.com/)**:
 
@@ -16,6 +16,7 @@ Prerequisites
 
 The *vpnbook_button* script requires the following packages:
 
+* Git: distributed version control system.
 * Zenity: displays graphical dialog boxes from shell scripts.
 * OpenVPN: virtual private network daemon.
 
@@ -24,20 +25,28 @@ In *GNU/Linux Debian Jessie* they are in the repositories:
 * *su* install:
 
         alex@arya:~$ su -
-        alex@arya:~# aptitude install zenity openvpn
+        alex@arya:~# aptitude install zenity openvpn git
 
 * *sudo* install:
 
-        alex@arya:~$ sudo apt-get install zenity openvpn
+        alex@arya:~$ sudo apt-get install zenity openvpn git
 
 Also you can install them from the *Synaptic* package manager.
 
 Install
 -------
 
-To install, just double click the *install.sh* script. To create an application
-launcher in a panel, just drag the shortcut to the panel of your preference
-(this works for *MATE*; for other desktop environments, check its documentation).
+1. Download the project's source code:
+
+        alex@arya:~$ git clone https://github.com/alexdesousa/vpnbook_button.git
+        
+2. This will create the folder *vpnbook_button* in your *home* folder. Open the
+folder and double click the *install.sh* script. This will create a shortcut in
+your *Desktop* folder.
+
+3. To create an application launcher in a panel (like MATE's panels), just drag
+the shortcut in your *Desktop* folder and drop it on the panel of your preference.
+For other desktop environments, check their documentation.
 
 Usage
 -----
@@ -55,7 +64,7 @@ The button has two functions:
 
 ---
 
-*Última actualización: 31 de marzo de 2014*
+*Última actualización: 4 de abril de 2014*
 
 Actualmente, VPN Book ofrece un servicio gratuito de VPN (Red Privada Virtual) para diferentes propósitos. Como dicen en su **[página] (http://www.vpnbook.com/)**:
 
@@ -68,6 +77,7 @@ Prerrequisitos
 
 El script *vpnbook_button* requiere los siguientes paquetes:
 
+* Git: control de versiones distribuido.
 * Zenity: muestra diálogos gráficos desde la *shell*.
 * OpenVPN: demonio para conectarse a una red privada virtual.
 
@@ -76,21 +86,28 @@ En *GNU/Linux Debian Jessie*, están en los repositorios:
 * Instalación con *su*:
 
         alex@arya:~$ su -
-        alex@arya:~# aptitude install zenity openvpn
+        alex@arya:~# aptitude install zenity openvpn git
 
 * Instalación con *sudo*:
 
-        alex@arya:~$ sudo apt-get install zenity openvpn
+        alex@arya:~$ sudo apt-get install zenity openvpn git
 
 También pueden ser instalados por el *administrador de paquetes Synaptic*.
 
 Instalación
 -----------
 
-Para instalar, sólo haz doble clic sobre el script *install.sh*. Para crear un
-lanzador, arrastra el acceso directo que esta en el escritorio, hacia el panel
-donde quieras el botón (functiona en *MATE*; para otros entornos de escritorio,
-consulte el manual de los mismos).
+1. Descarga el código fuente del proyecto:
+
+        alex@arya:~$ git clone https://github.com/alexdesousa/vpnbook_button.git
+        
+2. Esto creará la carpeta *vpnbook_button* en tu carpeta *home*. Abre la carpeta
+y haz doble clic en el script *install.sh*. Se creará un acceso directo en tu
+carpeta *Escritorio*.
+
+3. Para creat un lanzador de la aplicación en el panel (como los paneles de MATE),
+sólo arrastra el acceso directo en tu carpeta *Escritorio* y suéltala en el panel
+de tu preferencia. Para otros entornos de escritorio, lee sus manuales.
 
 Uso
 ---
